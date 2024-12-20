@@ -9,16 +9,13 @@
 - 支持设置缓存条目的有效时间（TTL）
 - 自动删除过期条目
 - 支持获取当前存储的所有缓存条目
+- 支持根据标识符获取特定的缓存条目
 - 支持获取当前存储中的缓存条目数量
 - 支持注册和注销监听器，以便在数据更新时执行特定操作
 
 ## 安装
 
-确保你已经安装了 Python 3.7 或更高版本。然后，你可以通过以下命令安装所需的依赖项（如果有的话）：
-
-```bash
-pip install -r requirements.txt
-```
+确保你已经安装了 Python 3.7 或更高版本
 
 ## 使用说明
 
@@ -27,7 +24,7 @@ pip install -r requirements.txt
 首先，导入 `CappedTTLCache` 类：
 
 ```python
-from capped_ttl_cache import CappedTTLCache  # 假设你的模块名为 capped_ttl_cache.py
+from CappedTTLCache import CappedTTLCache  # 假设你的模块名为 CappedTTLCache.py
 ```
 
 ### 2. 创建缓存实例
@@ -55,7 +52,16 @@ items = cache.get_items(reverse=True, count=3)
 print(items)
 ```
 
-### 5. 获取缓存条目数量
+### 5. 获取缓存条目
+
+使用 `get_items` 方法获取当前存储的所有缓存条目，可以选择性地按相反顺序排序和限制返回的条目数量：
+
+```python
+items = cache.get_items(reverse=True, count=3)
+print(items)
+```
+
+### 6. 获取缓存条目数量
 
 使用 `get_count` 方法获取当前存储中的缓存条目数量：
 
@@ -64,7 +70,7 @@ count = cache.get_count()
 print(f"当前缓存条目数量: {count}")
 ```
 
-### 6. 移除缓存条目
+### 7. 移除缓存条目
 
 使用 `remove_item` 方法从存储中移除一个指定标识的缓存条目：
 
@@ -72,7 +78,7 @@ print(f"当前缓存条目数量: {count}")
 cache.remove_item("item1")
 ```
 
-### 7. 注册监听器
+### 8. 注册监听器
 
 定义一个异步函数作为监听器，当缓存更新时，该函数将被调用：
 
@@ -87,7 +93,7 @@ async def cache_update_listener():
 cache.register_listener(cache_update_listener)
 ```
 
-### 8. 注销监听器
+### 9. 注销监听器
 
 如果不再需要某个监听器，可以使用 `unregister_listener` 方法将其移除：
 
@@ -95,13 +101,13 @@ cache.register_listener(cache_update_listener)
 cache.unregister_listener(cache_update_listener)
 ```
 
-### 9. 示例代码
+### 10. 示例代码
 
 以下是一个完整的示例，演示了如何使用 `CappedTTLCache`：
 
 ```python
 import asyncio
-from capped_ttl_cache import CappedTTLCache  # 假设你的模块名为 capped_ttl_cache.py
+from CappedTTLCache import CappedTTLCache
 
 async def cache_update_listener():
     print("缓存数据已更新！")

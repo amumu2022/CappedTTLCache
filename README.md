@@ -52,12 +52,12 @@ items = cache.get_items(reverse=True, count=3)
 print(items)
 ```
 
-### 5. 获取缓存条目
+### 5. 根据标识符获取特定的缓存条目
 
-使用 `get_items` 方法获取当前存储的所有缓存条目，可以选择性地按相反顺序排序和限制返回的条目数量：
+使用 `get_item` 方法s：
 
 ```python
-items = cache.get_items(reverse=True, count=3)
+items = cache.get_item(key="item1")
 print(items)
 ```
 

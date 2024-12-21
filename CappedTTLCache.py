@@ -61,6 +61,15 @@ class CappedTTLCache:
         """
         return self.cache.get(key)
 
+    def get_last_refresh_time(self, key: str) -> Optional[_T]:
+        """
+        作用: 根据标识符获取上一次更新时间。
+        参数:
+            key (str): 要获取的缓存条目的唯一标识符。
+        返回值: 如果存在，返回更新时间；否则返回 None。
+        """
+        return self.last_refresh_time.get(key)
+
     def get_items(self, *, reverse: bool = False, count: int = 0) -> List[_T]:
         """
         作用: 获取当前存储的所有缓存条目，可以选择性地按相反顺序排序和限制返回的条目数量。
@@ -112,16 +121,3 @@ class CappedTTLCache:
         await asyncio.gather(
             *[listener() for listener in self.listeners], return_exceptions=True
         )
-
-
-# 示例用法
-async def main():
-    cache = CappedTTLCache(max_items=5, ttl_seconds=10)
-
-    await cache.add_item("item1", "这是第一个缓存条目")
-
-    print(cache.get_items())
-    print(cache.get_item('item1'))
-
-
-asyncio.run(main())
